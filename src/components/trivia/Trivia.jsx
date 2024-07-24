@@ -10,6 +10,7 @@ export default function Trivia({timer,setTimer,setStop,queNumber,setQueNumber}) 
 
   const [selectedOption,setSelectedOption] = useState('')
   const [classToApply,setClassToApply] = useState("option")
+  const [isChosen,setIsChosen] = useState(false)
   const [playCorrect] = useSound(correctSound)
   const [playWrong] = useSound(wrongSound)
   const [playWait] = useSound(waitSound)
@@ -34,14 +35,17 @@ export default function Trivia({timer,setTimer,setStop,queNumber,setQueNumber}) 
           return null
         }
         setQueNumber(queNumber+1)
+        setIsChosen(false)
         setSelectedOption('')
+        setClassToApply("option")
       } else {
         setStop(true)
       }
-    },3000)
+    },2000)
   }
 
   const optionHandler = (option)=>{
+      setIsChosen(true)
       setSelectedOption(option.text)
       setClassToApply("option active")
       playWait()
@@ -54,7 +58,9 @@ export default function Trivia({timer,setTimer,setStop,queNumber,setQueNumber}) 
               return null
             }
             setQueNumber(queNumber+1)
+            setIsChosen(false)
             setSelectedOption('')
+            setClassToApply("option")
           } else{  
             playWrong()
             setClassToApply("option wrong")
@@ -70,7 +76,7 @@ export default function Trivia({timer,setTimer,setStop,queNumber,setQueNumber}) 
             setClassToApply("option wrong")
           }
           delay(option)
-        },3000)
+        },2000)
       }
   }
 
@@ -85,7 +91,7 @@ export default function Trivia({timer,setTimer,setStop,queNumber,setQueNumber}) 
               (o,index) => <div 
                       key={index}
                       className={selectedOption===o.text ? classToApply : "option"} 
-                      onClick={()=>optionHandler(o)} 
+                      onClick={()=>{!isChosen&&optionHandler(o)}} 
                     >
                       {o.text}
                     </div>)
