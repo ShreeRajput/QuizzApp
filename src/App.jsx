@@ -10,6 +10,8 @@ function App() {
   const [earned, setEarned] = useState(0)
   const [timer, setTimer] = useState(30)
   const [username, setUsername] = useState('')
+  const [randomNO,setRandomNO] = useState(Math.floor(Math.random() * 5))
+
 
   const moneyPyramid = useMemo(
     () =>
@@ -71,6 +73,7 @@ function App() {
                 </div>
                 <div className="bottom">
                   <Trivia
+                    randomNO = {randomNO}
                     timer={timer}
                     setTimer={setTimer}
                     setStop={setStop}

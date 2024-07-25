@@ -4,9 +4,9 @@ import './trivia.css'
 import wrongSound from "../../sounds/waitSound.mp3"
 import correctSound from "../../sounds/correctSound.mp3"
 import waitSound from "../../sounds/waitSound.mp3"
-import data from "../../questiondata.js"
+import dataSet from "../../questiondata.js"
 
-export default function Trivia({timer,setTimer,setStop,queNumber,setQueNumber}) {
+export default function Trivia({randomNO,timer,setTimer,setStop,queNumber,setQueNumber}) {
 
   const [selectedOption,setSelectedOption] = useState('')
   const [classToApply,setClassToApply] = useState("option")
@@ -14,6 +14,7 @@ export default function Trivia({timer,setTimer,setStop,queNumber,setQueNumber}) 
   const [playCorrect] = useSound(correctSound)
   const [playWrong] = useSound(wrongSound)
   const [playWait] = useSound(waitSound)
+  const data = dataSet[randomNO]
 
   useEffect(() => {
     if (timer <= 0) {
