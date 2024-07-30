@@ -5,7 +5,7 @@ export default function NamePage({ setUsername }) {
     const inputRef = useRef()
   
     const handleClick = () => {
-      inputRef.current.value && setUsername(inputRef.current.value)
+      inputRef.current.value.trim() && setUsername(inputRef.current.value)
     };
   
     return (
