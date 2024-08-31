@@ -48,6 +48,8 @@ function App() {
 
   const handleReplay = () => {
     setStop(false)
+    setTimer(30)
+    setRandomNO(Math.floor(Math.random() * 5))
     setEarned(0)
     setQueNumber(1)
   }

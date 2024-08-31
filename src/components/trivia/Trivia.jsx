@@ -14,6 +14,7 @@ export default function Trivia({randomNO,timer,setTimer,setStop,queNumber,setQue
   const [playCorrect] = useSound(correctSound)
   const [playWrong] = useSound(wrongSound)
   const [playWait] = useSound(waitSound)
+  const [correctAnswer,setCorrectAnswer] = useState('')
   const data = dataSet[randomNO]
 
   useEffect(() => {
@@ -27,6 +28,13 @@ export default function Trivia({randomNO,timer,setTimer,setStop,queNumber,setQue
   
     return () => clearInterval(intervalId) // Cleanup function
   }, [timer,setStop,setTimer])
+
+  useEffect(() => {
+    const correctOption = data[queNumber - 1].options.find(option => option.correct);
+    if (correctOption) {
+      setCorrectAnswer(correctOption.text);
+    }
+  }, [queNumber, data])
 
   const delay = (option)=> {
     setTimeout(()=>{
@@ -65,6 +73,11 @@ export default function Trivia({randomNO,timer,setTimer,setStop,queNumber,setQue
           } else{  
             playWrong()
             setClassToApply("option wrong")
+            // show alert of correct option
+            setTimeout(() => {
+              alert('Correct answer is ' + correctAnswer);
+              setStop(true);
+            }, 2000);
             setStop(true)
           }
       } else {
@@ -75,6 +88,10 @@ export default function Trivia({randomNO,timer,setTimer,setStop,queNumber,setQue
           } else{  
             playWrong()
             setClassToApply("option wrong")
+            setTimeout(() => {
+              alert('Correct answer is ' + correctAnswer);
+              setStop(true);
+            }, 2000);
           }
           delay(option)
         },2000)
